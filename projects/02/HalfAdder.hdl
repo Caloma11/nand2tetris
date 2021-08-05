@@ -9,9 +9,13 @@
 
 CHIP HalfAdder {
     IN a, b;    // 1-bit inputs
-    OUT sum,    // Right bit of a + b 
+    OUT sum,    // Right bit of a + b
         carry;  // Left bit of a + b
 
     PARTS:
     // Put you code here:
+
+    And (a=a ,b=b ,out=carry, out=aAndB);
+    Or (a=a ,b=b, out=aOrB);
+    Mux (a=aOrB , b=false , sel=aAndB , out=sum );
 }
