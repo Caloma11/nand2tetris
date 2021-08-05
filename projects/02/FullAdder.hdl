@@ -14,4 +14,15 @@ CHIP FullAdder {
 
     PARTS:
     // Put you code here:
+
+  HalfAdder(a=a ,b=b ,sum=aPlusB , carry=firstCarry );
+
+  HalfAdder(a=aPlusB ,b=c ,sum=aPlusBPlusC , carry=secondCarry);
+
+  Or (a=firstCarry, b=secondCarry, out=carry);
+
+  And (a=firstCarry, b=secondCarry, out=firstAndSecond);
+
+  Mux (a=aPlusBPlusC ,b=true ,sel=firstAndSecond ,out=sum );
+
 }
