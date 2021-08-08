@@ -70,6 +70,18 @@ CHIP ALU {
 
    // Potentially postsets the result
 
-   Mux16  (a=result , b=notResult , sel=no ,out=out);
+   Mux16  (a=result , b=notResult , sel=no ,out=out, out[15]=ng, out[0..7]=first, out[8..15]=second);
+
+  // zr 1 if (out == 0), 0 otherwise
+  // ng 1 if (out < 0),  0 otherwise
+
+    Or8Way (in=first, out=firstHalf );
+    Or8Way (in=second, out=secondHalf );
+
+    Not (in=firstHalf ,out=notFirst );
+    Not (in=secondHalf ,out=notSecond );
+
+    And (a=notFirst ,b=notSecond ,out=zr );
+
 
 }
