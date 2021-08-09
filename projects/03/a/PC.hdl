@@ -11,10 +11,56 @@
  * else                    out[t+1] = out[t]
  */
 
+
+
 CHIP PC {
     IN in[16],load,inc,reset;
     OUT out[16];
 
     PARTS:
     // Put your code here:
+
+
+    Inc16 (in=regOut, out=regOut1);
+
+    Mux16 (a=regOut ,b=regOut1 ,sel=inc ,out=incOut );
+
+    Mux16 (a=incOut, b=in, sel=load, out=loadOut);
+
+    Mux16 (a=loadOut ,b=false ,sel=reset ,out=resOut );
+
+    Register (in=resOut ,load=true ,out=out, out=regOut );
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Mux16 (a=in ,b=false ,sel=reset, out=muxOut );
+
+    // Inc16 (in=muxOut, out=muxOut1);
+
+
+    // Adds inc to notLoad
+    // Not (in=load ,out=notLoad );
+
+    // And (a=inc, b=notLoad, out=incAndNotLoad);
+
+    // Adds inc, notload and notreset
+    // Not (in=reset ,out=notReset );
+    // And (a=incAndNotLoad, b=notReset, out=shouldInc);
+
+    // Mux16 (a=muxOut ,b=muxOut1 ,sel=shouldInc, out=final );
