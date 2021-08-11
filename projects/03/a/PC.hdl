@@ -32,9 +32,6 @@ CHIP PC {
     Register (in=resOut ,load=true ,out=out, out=regOut );
 
 
-
-
-
 }
 
 
