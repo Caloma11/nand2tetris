@@ -32,6 +32,8 @@
 
 // Adds 1+...+100.
 
+(BEGIN)
+
 @SCREEN
 D=A
 @addr
@@ -51,14 +53,33 @@ M=0 // sets i to 0 for counting
 D=M
 @n
 D=D-M
-@FILLEND
+@BEGIN
 D;JGT //check if the height is reached
 
 // IF Not
 
+
+@KBD
+D=M // Checks whats inside keyboard register
+
+@SKIPBLACK
+D;JEQ
+
+
 @addr
 A=M
-M=-1
+M=-1 // paints the address black
+
+@SKIPWHITE
+0;JMP
+
+(SKIPBLACK)
+@addr
+A=M
+M=0 // paints the address WHITE
+
+
+(SKIPWHITE)
 
 @i
 M=M+1 // adds one to i
