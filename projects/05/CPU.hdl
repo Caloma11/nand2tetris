@@ -43,15 +43,12 @@ CHIP CPU {
 
 
 
-    And(a=instruction[15], b=instruction[5], out=outputToA);    // C-inst and dest to A-reg?
 
-    Mux16(a=instruction ,b=aluOutput ,sel=outputToA ,out=instOrOutput ); // uses opcode to check if it's A OR C inst
+    Mux16(a=instruction ,b=aluOutput ,sel=instruction[15] ,out=instOrOutput ); // uses opcode to check if it's A OR C inst
 
 
 
     And(a=instruction[15], b=instruction[5], out=cToA);    // c instruction sending to a
-
-
     Not(in=instruction[15], out=notC );
 
     Or(a=notC, b=cToA, out=loadA); // loads A if loadbit or  c instruction sending to a
@@ -63,8 +60,7 @@ CHIP CPU {
     Mux16(a=registerAOut ,b=inM ,sel=instruction[12] ,out=aOrM );
 
 
-    And(a=instruction[15], b=instruction[4], out=loadD);
-    DRegister(in=aluOutput ,load=loadD ,out=dOut );
+    DRegister(in=aluOutput ,load=instruction[4] ,out=dOut );
 
 
 
