@@ -9,6 +9,7 @@ unset CDPATH
 script="`test -L "$0" && readlink -n "$0" || echo "$0"`"
 dir="$PWD"
 cd "`dirname "$script"`"
+echo "`dirname "$script"`"
 if [ \( $# -gt 1 \) -o \( "$1" = "-h" \) -o \( "$1" = "--help" \) ]
 then
 	echo "Usage:"
@@ -17,7 +18,7 @@ then
 elif [ $# -eq 0 ]
 then
 	# Run assembler in interactive mode
-	java -classpath "${CLASSPATH}:bin/classes:bin/lib/Hack.jar:bin/lib/HackGUI.jar:bin/lib/Compilers.jar:bin/lib/AssemblerGUI.jar:bin/lib/TranslatorsGUI.jar" HackAssemblerMain &
+	java -classpath "${CLASSPATH}:bin/classes:bin/lib/Hack.jar:bin/lib/HackGUI.jar:bin/lib/Compilers.jar:bin/lib/AssemblerGUI.jar:bin/lib/TranslatorsGUI.jar" HackAssemblerMain
 else
 	# Convert arg1 to an absolute path and run assembler with arg1.
 	if [ `echo "$1" | sed -e "s/\(.\).*/\1/"` = / ]
