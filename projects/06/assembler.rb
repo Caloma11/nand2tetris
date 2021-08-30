@@ -221,9 +221,9 @@ fp_commands.each do |command|
 
     begin
     binary_result << ("111" + comp_binary + dest_binary + jump_binary)
-  rescue
-    binding.pry
-  end
+    rescue
+      binding.pry
+    end
   end
 end
 
