@@ -27,7 +27,8 @@ comps = {
   "M-D" => "1000111",
   "D&A" => "0000000", #D&M
   "D&M" => "1000000",
-  "D|A" => "0010101"
+  "D|A" => "0010101", #D|M
+  "D|M" => "1010101"
 }
 
 dests = {
@@ -51,6 +52,34 @@ jumps = {
   "JLE" => "110",
   "JMP" => "111"
 }
+
+symbols = {
+  "R0" => "0",
+  "R1"=>"1",
+  "R2"=>"2",
+  "R3"=>"3",
+  "R4"=>"4",
+  "R5"=>"5",
+  "R6"=>"6",
+  "R7"=>"7",
+  "R8"=>"8",
+  "R9"=>"9",
+  "R10"=>"10",
+  "R11"=>"11",
+  "R12"=>"12",
+  "R13"=>"13",
+  "R14"=>"14",
+  "R15"=>"15",
+  "SP" => "0",
+  "LCL" => "1",
+  "ARG" => "2",
+  "THIS" => "3",
+  "THAT" => "4",
+  "SCREEN" => "16384",
+  "KBD" => "24576"
+}
+
+
 
 # a instruction => @21
 # 000000000010101op code + 15-bit constant
@@ -108,44 +137,100 @@ end
 parsed_file = File.open(file_path).read.gsub("\r", "")
 
 # Array of commands to be parsed
-commands = parsed_file.split("\n").reject { |line| line.match?(/^\/\//) || line.empty? }
+commands = parsed_file.split("\n").reject { |line| line.match?(/^\/\//) || line.empty? }.map(&:strip)
+require 'pry-byebug'
+# binding.pry
 
+# remove side comments
+commands.map! do |c|
+  if c.match?(/\/\//)
+    c.strip.gsub(" ", "").match(/(?<com>.+)\/\//)[:com]
+  else
+    c
+  end
+end
 
-binary_result = []
-
+# First Pass
+fp_commands = []
+symbol_value = 16
 commands.each do |command|
+
+  # p "#{index_counter} - #{command}"
+
+  # Define if it needs to be parsed
+  if command.match?(/@\D/)
+    symbol = command[1..-1]
+    # Checks if it's predefiened
+    p command
+    if symbols.has_key?(symbol)
+      fp_commands << command.sub(symbol, symbols[symbol])
+    #Checks if it's a label
+    elsif commands.include?("(#{symbol})")
+
+      commands_until_here = commands[0..commands.index("(#{symbol})")]
+      label_amount = commands_until_here.count { |c| c.match?(/\(.+\)/) }
+
+      index = (commands.index("(#{symbol})") - label_amount) + 1
+
+      fp_commands << "@#{index}"
+
+    # It is just  a regular variable
+    else
+      symbols[symbol] = symbol_value.to_s
+      fp_commands << "@#{symbol_value}"
+      symbol_value += 1
+    end
+
+  # Does not need to be parsed
+  elsif !command.match?(/\(.+\)/)
+    fp_commands << command
+  end
+end
+
+p fp_commands
+
+# Second pass
+binary_result = []
+fp_commands.each do |command|
   # /checks if it's an A-instruction
   if command[0] == "@"
     binary_result << format('%016d', command[1..-1].to_i.to_s(2))
   else
     start_binary = "111"
-    c_instruction = command.match(/(?<dest>.+)=(?<comp>.+)/)
+
+    c_instruction = command.match(/(?<dest>.+)=(?<comp>.+)|(?<comp>.+);/)
 
     dest = c_instruction[:dest]
-    dest_binary = dests[dest]
+    if dest
+      dest_binary = dests[dest]
+    else
+      dest_binary = "000"
+    end
 
     comp = c_instruction[:comp]
     comp_binary = comps[comp]
 
     jump = command.match(/;(?<jmp>.+)/)
 
-
-    if jump
-      jump_binary = ""
+    if jump && jump[:jmp]
+     jump_binary = jumps[jump[:jmp]]
     else
       jump_binary = "000"
     end
 
 
+    begin
     binary_result << ("111" + comp_binary + dest_binary + jump_binary)
-
+  rescue
+    binding.pry
+  end
   end
 end
 
 
 
-# ...
-# A instruction to bin
+# # ...
+# # A instruction to bin
 
 
 File.write(file_path.sub('.asm', '.myhack'), binary_result.join("\n"))
@@ -158,16 +243,4 @@ File.write(file_path.sub('.asm', '.myhack'), binary_result.join("\n"))
 
 
 
-
-
-
-# PSEUDOCODE
-# break down instruction
-
-# if it's a translate the decimal value to binary
-
-# if its' c genereate the corresponding binary code based on th etab;es
-# assemble it in 16bit
-
-# write to the text file
 
