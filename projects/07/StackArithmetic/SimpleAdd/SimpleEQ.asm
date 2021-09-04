@@ -1,0 +1,56 @@
+// push constant 10
+@10
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// push constant 20
+@20
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// push constant 5
+@5
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// EQ
+@SP
+A=M-1
+D=M
+@lastnumber
+M=D
+@SP
+M=M-1
+@SP
+A=M-1
+D=M
+@lastnumber
+D=D-M
+@EQUAL
+D;JEQ
+(NOTEQUAL)
+@SP
+M=M-1
+@SP
+A=M
+M=0
+@END
+0;JMP
+(EQUAL)
+@SP
+M=M-1
+@SP
+A=M
+M=-1
+(END)
+@SP
+M=M+1
