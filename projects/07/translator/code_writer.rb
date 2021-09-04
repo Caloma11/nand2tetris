@@ -4,7 +4,7 @@ class CodeWriter
 
   include Arithmetics
   # There is no pop constant
-  def constant(command_parts)
+  def constant(command_parts, i)
     ["// #{command_parts.join(" ")}",
     "@#{command_parts[2]}", # @17
     "D=A",
@@ -16,7 +16,7 @@ class CodeWriter
   end
 
   # LCL points to the *base* of local segment
-  def local(command_parts)
+  def local(command_parts, i)
     case command_parts[0]
     when "pop"
       p "pop"
@@ -25,27 +25,27 @@ class CodeWriter
     end
   end
 
-  def pointer(command_parts)
+  def pointer(command_parts, i)
 
   end
 
-  def this(command_parts)
+  def this(command_parts, i)
 
   end
 
-  def that(command_parts)
+  def that(command_parts, i)
 
   end
 
-  def static(command_parts)
+  def static(command_parts, i)
 
   end
 
-  def argument(command_parts)
+  def argument(command_parts, i)
 
   end
 
-  def temp(command_parts)
+  def temp(command_parts, i)
 
   end
 

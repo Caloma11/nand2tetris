@@ -13,17 +13,17 @@ class Parser
   end
 
   def parse
-    @commands.each do |command|
-      @hack_commands << route(command)
+    @commands.each_with_index do |command, i|
+      @hack_commands << route(command, i)
     end
   end
 
   private
 
   # Routes either a mem_seg or an arithmetic command
-  def route(command)
+  def route(command, i)
     sent_method = command.count(" ") == 2 ? command.split(' ')[1] : command
-    return @code_writer.send(sent_method, command.split(' '))
+    return @code_writer.send(sent_method, command.split(' '), i)
   end
 end
 
