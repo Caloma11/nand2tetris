@@ -268,4 +268,103 @@ module Arithmetics
     ]
   end
 
+  def and(command_parts)
+    [
+      "// And",
+      # select last number
+      "@SP",
+      "A=M-1",
+      "D=M",
+      "@lastnumber",
+      "M=D",
+      # Decrement sp, pop from the stack
+      "@SP",
+      "M=M-1",
+      # select new last number
+      "@SP",
+      "A=M-1",
+      "D=M",
+
+      # calc result
+      "@lastnumber",
+      "M=D&M" ,
+      # Decrement sp, pop from the stack
+      "@SP",
+      "M=M-1",
+      # grab result
+      "@lastnumber" ,
+      "D=M",
+      # put result on last stack place
+      "@SP" ,
+      "A=M",
+      "M=D",
+      # increment sp
+      "@SP",
+      "M=M+1",
+    ]
+  end
+
+  def or(command_parts)
+    [
+      "// OR",
+      # select last number
+      "@SP",
+      "A=M-1",
+      "D=M",
+      "@lastnumber",
+      "M=D",
+      # Decrement sp, pop from the stack
+      "@SP",
+      "M=M-1",
+      # select new last number
+      "@SP",
+      "A=M-1",
+      "D=M",
+
+      # calc result
+      "@lastnumber",
+      "M=D|M" ,
+      # Decrement sp, pop from the stack
+      "@SP",
+      "M=M-1",
+      # grab result
+      "@lastnumber" ,
+      "D=M",
+      # put result on last stack place
+      "@SP" ,
+      "A=M",
+      "M=D",
+      # increment sp
+      "@SP",
+      "M=M+1",
+    ]
+  end
+
+  def neg(command_parts)
+    [
+      "// Neg",
+      # select last number
+      "@SP",
+      "A=M-1",
+      "D=M",
+      # set result to not(last number)
+      "@result",
+      "M=!D",
+      # Decrement sp, pop from the stack
+      "@SP",
+      "M=M-1",
+      # grab result
+      "@result" ,
+      "D=M",
+      # put result on last stack place
+      "@SP" ,
+      "A=M",
+      "M=D",
+      # increment sp
+      "@SP",
+      "M=M+1"
+    ]
+  end
+
+
 end
