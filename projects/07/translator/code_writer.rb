@@ -2,9 +2,11 @@ require_relative 'concerns/arithmetics'
 
 class CodeWriter
 
+  attr_accessor :current_command
+
   include Arithmetics
   # There is no pop constant
-  def constant(command_parts, i)
+  def constant(command_parts)
     ["// #{command_parts.join(" ")}",
     "@#{command_parts[2]}", # @17
     "D=A",
@@ -16,7 +18,7 @@ class CodeWriter
   end
 
   # LCL points to the *base* of local segment
-  def local(command_parts, i)
+  def local(command_parts)
     case command_parts[0]
     when "pop"
       p "pop"
@@ -25,27 +27,27 @@ class CodeWriter
     end
   end
 
-  def pointer(command_parts, i)
+  def pointer(command_parts)
 
   end
 
-  def this(command_parts, i)
+  def this(command_parts)
 
   end
 
-  def that(command_parts, i)
+  def that(command_parts)
 
   end
 
-  def static(command_parts, i)
+  def static(command_parts)
 
   end
 
-  def argument(command_parts, i)
+  def argument(command_parts)
 
   end
 
-  def temp(command_parts, i)
+  def temp(command_parts)
 
   end
 

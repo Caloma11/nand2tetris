@@ -1,6 +1,6 @@
 module Arithmetics
 
-  def add(command_parts, index)
+  def add
     [
       "// Add",
       # set sum to 0
@@ -39,7 +39,7 @@ module Arithmetics
     ]
   end
 
-  def sub(command_parts, index)
+  def sub
     [
       "// Sub",
       # set sum to 0
@@ -78,7 +78,7 @@ module Arithmetics
     ]
   end
 
-  def neg(command_parts, index)
+  def neg
     [
       "// Neg",
       # set result to 0
@@ -109,7 +109,7 @@ module Arithmetics
   end
 
   # {-1 => true, 0 => false}
-  def eq(command_parts, index)
+  def eq
     [
       "// EQ",
       "@SP", # select last number
@@ -129,11 +129,11 @@ module Arithmetics
       "@lastnumber",
       "D=D-M",
 
-      "@EQUAL#{index}",
+      "@EQUAL#{@current_command}",
       "D;JEQ",
 
 
-      "(NOTEQUAL#{index})",
+      "(NOTEQUAL#{@current_command})",
       # Decrement sp pop from the stack
       "@SP",
       "M=M-1",
@@ -141,10 +141,10 @@ module Arithmetics
       "@SP",
       "A=M",
       "M=0",
-      "@END#{index}",
+      "@END#{@current_command}",
       "0;JMP",
 
-      "(EQUAL#{index})",
+      "(EQUAL#{@current_command})",
       # Decrement sp pop from the stack
       "@SP",
       "M=M-1",
@@ -153,14 +153,14 @@ module Arithmetics
       "A=M",
       "M=-1",
 
-      "(END#{index})",
+      "(END#{@current_command})",
       # Increment SP
       "@SP",
       "M=M+1"
     ]
   end
 
-  def gt(command_parts, index)
+  def gt
     ["// GT",
     # select y
     "@SP",
@@ -183,11 +183,11 @@ module Arithmetics
     "@y",
     "D=D-M",
 
-    "@GREATER#{index}",
+    "@GREATER#{@current_command}",
     "D;JGT",
 
 
-    "(NOTGREATER#{index})",
+    "(NOTGREATER#{@current_command})",
     # Decrement sp pop from the stack
     "@SP",
     "M=M-1",
@@ -195,10 +195,10 @@ module Arithmetics
     "@SP",
     "A=M",
     "M=0",
-    "@END#{index}",
+    "@END#{@current_command}",
     "0;JMP",
 
-    "(GREATER#{index})",
+    "(GREATER#{@current_command})",
     # Decrement sp pop from the stack
     "@SP",
     "M=M-1",
@@ -207,14 +207,14 @@ module Arithmetics
     "A=M",
     "M=-1",
 
-    "(END#{index})",
+    "(END#{@current_command})",
     # Increment SP
     "@SP",
     "M=M+1"
     ]
   end
 
-  def lt(command_parts, index)
+  def lt
     ["// LT",
     # select y
     "@SP",
@@ -237,11 +237,11 @@ module Arithmetics
     "@y",
     "D=D-M",
 
-    "@LESSER#{index}",
+    "@LESSER#{@current_command}",
     "D;JLT",
 
 
-    "(NOTLESSER#{index})",
+    "(NOTLESSER#{@current_command})",
     # Decrement sp pop from the stack
     "@SP",
     "M=M-1",
@@ -249,10 +249,10 @@ module Arithmetics
     "@SP",
     "A=M",
     "M=0",
-    "@END#{index}",
+    "@END#{@current_command}",
     "0;JMP",
 
-    "(LESSER#{index})",
+    "(LESSER#{@current_command})",
     # Decrement sp pop from the stack
     "@SP",
     "M=M-1",
@@ -261,14 +261,14 @@ module Arithmetics
     "A=M",
     "M=-1",
 
-    "(END#{index})",
+    "(END#{@current_command})",
     # Increment SP
     "@SP",
     "M=M+1"
     ]
   end
 
-  def and(command_parts, index)
+  def and
     [
       "// And",
       # select last number
@@ -304,7 +304,7 @@ module Arithmetics
     ]
   end
 
-  def or(command_parts, index)
+  def or
     [
       "// OR",
       # select last number
@@ -340,7 +340,7 @@ module Arithmetics
     ]
   end
 
-  def not(command_parts, index)
+  def not
     [
       "// Not",
       # select last number
