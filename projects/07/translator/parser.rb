@@ -39,10 +39,3 @@ end
 # 16384–24575 Memory mapped I/O
 
 
-#SP => RAM[0] => Points to the next address of the stack
-# LCL => RAM[1] => Points to the base of 'local'
-# ARG => RAM[2] =>  Points to the base of 'argument'
-# THIS => RAM[3] => POints to the base of 'this' => half of 'pointer'
-# THAT => RAM[4] => POints to the base of 'that' => half of 'pointer'
-# RAM[5-12] => 'temp'
-# RAM[13-15] =....

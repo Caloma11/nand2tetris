@@ -15,7 +15,8 @@ class IO
     @commands = commands.map { |c| c.match?(/\/\//) ? c.strip.gsub(" ", "").match(/(?<com>.+)\/\//)[:com] : c }
   end
 
-  def write(hack_commands)
+  def write_it(hack_commands)
+    binding.pry
     File.write(@filepath.sub('.vm', '.asm'), hack_commands.flatten.join("\n"))
   end
 end

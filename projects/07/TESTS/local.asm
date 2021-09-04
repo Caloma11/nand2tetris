@@ -1,0 +1,45 @@
+// push local 2
+@LCL
+D=M
+@2
+D=D+A 
+@addr
+M=D
+@addr
+A=M
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// push local 3
+@LCL
+D=M
+@3
+D=D+A 
+@addr
+M=D
+@addr
+A=M
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// push local 1
+@LCL
+D=M
+@1
+D=D+A 
+@addr
+M=D
+@addr
+A=M
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
