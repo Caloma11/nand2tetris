@@ -1,0 +1,54 @@
+@7
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@8
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+
+// set sum to 0
+@sum
+M=0
+
+// select last number
+@SP
+A=M-1
+D=M
+
+@sum
+M=M+D // add last number to sum
+
+@SP
+M=M-1 // Decrement sp, pop from the stack
+
+// select last number
+@SP
+A=M-1
+D=M
+
+@sum
+M=M+D // add last number to sum
+
+@SP
+M=M-1 // Decrement sp, pop from the stack
+
+@sum // grab result
+D=M
+
+@SP // put result on last stack place
+A=M
+M=D
+
+@SP // increment sp
+M=M+1
+
+
+
+// QUANDO SELECIONA A O M MUDA TBM
