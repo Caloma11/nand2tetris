@@ -1,27 +1,30 @@
-     // EQ
-      // select last number
+     // GT
+      // select y
      @SP
      A=M-1
      D=M
-      // set last number
-     @lastnumber
+
+      // set y
+     @y
      M=D
+
       // Decrement sp pop from the stack
      @SP
      M=M-1
-      // select new last number
+
+      // select x
      @SP
      A=M-1
      D=M
 
-    @lastnumber
+    @y
     D=D-M
 
-    @EQUAL
-    D;JEQ
+    @GREATER
+    D;JGT
 
 
-    (NOTEQUAL)
+    (NOTGREATER)
       // Decrement sp pop from the stack
      @SP
      M=M-1
@@ -32,7 +35,7 @@
       @END
       0;JMP
 
-    (EQUAL)
+    (GREATER)
     // Decrement sp pop from the stack
      @SP
      M=M-1

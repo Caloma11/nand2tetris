@@ -1,0 +1,56 @@
+// push constant 10
+@10
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// push constant 20
+@20
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// push constant 22
+@22
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// GT
+@SP
+A=M-1
+D=M
+@y
+M=D
+@SP
+M=M-1
+@SP
+A=M-1
+D=M
+@y
+D=D-M
+@GREATER
+D;JGT
+(NOTGREATER)
+@SP
+M=M-1
+@SP
+A=M
+M=0
+@END
+0;JMP
+(GREATER)
+@SP
+M=M-1
+@SP
+A=M
+M=-1
+(END)
+@SP
+M=M+1
