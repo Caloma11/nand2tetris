@@ -16,7 +16,6 @@ class IO
   end
 
   def write_it(hack_commands)
-    binding.pry
     File.write(@filepath.sub('.vm', '.asm'), hack_commands.flatten.join("\n"))
   end
 end

@@ -360,7 +360,7 @@ M=D
 M=M+1
 // push temp 6
 @5
-D=A
+D=M
 @6
 D=D+A 
 @addr
