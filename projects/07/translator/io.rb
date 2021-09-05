@@ -1,3 +1,4 @@
+require 'pry-byebug'
 class IO
 
   attr_reader :commands
@@ -17,6 +18,10 @@ class IO
 
   def write_it(hack_commands)
     File.write(@filepath.sub('.vm', '.asm'), hack_commands.flatten.join("\n"))
+  end
+
+  def filename
+    @filepath.match(/(?<filename>[^\/]+)\.vm/)[:filename]
   end
 end
 

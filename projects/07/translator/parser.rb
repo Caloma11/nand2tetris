@@ -4,10 +4,10 @@ class Parser
 
   attr_reader :hack_commands
 
-  def initialize(commands)
+  def initialize(commands, filename)
     @commands = commands
     @hack_commands = []
-    @code_writer = CodeWriter.new
+    @code_writer = CodeWriter.new(filename)
     parse
   end
 

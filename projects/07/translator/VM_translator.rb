@@ -13,7 +13,7 @@ end
 
 io = IO.new(filepath)
 
-parser = Parser.new(io.commands)
+parser = Parser.new(io.commands, io.filename)
 
 
 
