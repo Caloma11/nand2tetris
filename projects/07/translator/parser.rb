@@ -1,4 +1,3 @@
-require 'pry-byebug'
 require_relative 'code_writer'
 
 class Parser
@@ -30,12 +29,3 @@ class Parser
     end
   end
 end
-
-
-# 0–15 Sixteen virtual registers, usage described below
-# 16–255 Static variables (of all the VM functions in the VM program)
-# 256–2047 Stack
-# 2048–16483 Heap (used to store objects and arrays)
-# 16384–24575 Memory mapped I/O
-
-
